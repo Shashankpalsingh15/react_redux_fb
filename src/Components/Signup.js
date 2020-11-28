@@ -1,34 +1,63 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { onSignup } from "../Store/Action/authAction";
-import { SIGNUP } from '../Store/Type';
+import { SIGNUP } from "../Store/Type";
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const state = useSelector((state) => state.authReducer);
-  console.log("Dispatch", dispatch);
-  console.log("state", state);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // console.log("Dispatch", dispatch);
+  // console.log("state", state);
 
   const handleSignup = () => {
     dispatch(
-        onSignup({
-                "email": "eve.holt@reqres.in",
-                "password": "pistol"
-      })
+      onSignup(
+        {
+          email, //"eve.holt@reqres.in",
+          password, //"pistol"
+        },
+        history
+      )
     );
   };
 
-    return (
-        <div>
-        <button
+  return (
+    <div>
+      <form>
+        <label>
+          User Name:
+          <input
+            type="email"
+            value={email}
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <br />
+      </form>
+      <button
         onClick={() => {
-            handleSignup();
+          handleSignup();
         }}
       >
         Signup
       </button>
-        </div>
-    )
-}
+    </div>
+  );
+};
 
-export default Signup
+export default Signup;

@@ -14,12 +14,12 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
-      case SIGNUP:
+    case SIGNUP:
       return {
         ...state,
         user: action.payload,
       };
     default:
-      return { state };
+      return state;
   }
 };
